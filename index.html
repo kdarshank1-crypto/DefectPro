@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Home Defect Inspection Report Generator - Create and export inspection reports as PDF">
+    <title>Home Defect Inspection Report Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Header -->
+        <header class="app-header">
+            <h1>Home Defect Inspection Report Generator</h1>
+            <p class="subtitle">Create professional inspection reports and export as PDF</p>
+        </header>
+
+        <!-- Report Form -->
+        <main class="report-form">
+            
+            <!-- Section 1: Report Header / Company Info -->
+            <section class="form-section" id="company-section">
+                <h2 class="section-title">
+                    <span class="section-number">1</span>
+                    Company Information
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="companyName">Company Name</label>
+                        <input type="text" id="companyName" placeholder="Enter company name">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyPhone">Company Phone Number</label>
+                        <input type="tel" id="companyPhone" placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="companyEmail">Company Email</label>
+                        <input type="email" id="companyEmail" placeholder="Enter email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="reportTitle">Report Title</label>
+                        <input type="text" id="reportTitle" value="Home Defect Inspection Report" placeholder="Enter report title">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Property & Client Details -->
+            <section class="form-section" id="client-section">
+                <h2 class="section-title">
+                    <span class="section-number">2</span>
+                    Property & Client Details
+                </h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientName">Client Name</label>
+                        <input type="text" id="clientName" placeholder="Enter client name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectionDate">Inspection Date</label>
+                        <input type="date" id="inspectionDate">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="clientAddress">Client Address</label>
+                        <textarea id="clientAddress" rows="3" placeholder="Enter property address"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectorName">Inspector Name</label>
+                        <input type="text" id="inspectorName" placeholder="Enter inspector name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inspectorCredentials">Inspector Credentials</label>
+                        <textarea id="inspectorCredentials" rows="3" placeholder="Enter credentials, certifications, qualifications"></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Inspection Details -->
+            <section class="form-section" id="inspection-section">
+                <h2 class="section-title">
+                    <span class="section-number">3</span>
+                    Inspection Details
+                </h2>
+                <div class="form-grid four-cols">
+                    <div class="form-group">
+                        <label for="attendance">Attendance</label>
+                        <select id="attendance">
+                            <option value="">Select...</option>
+                            <option value="Owner Present">Owner Present</option>
+                            <option value="Tenant Present">Tenant Present</option>
+                            <option value="Agent Present">Agent Present</option>
+                            <option value="No One Present">No One Present</option>
+                            <option value="Builder Present">Builder Present</option>
+                            <option value="Multiple Parties Present">Multiple Parties Present</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupancy">Occupancy</label>
+                        <select id="occupancy">
+                            <option value="">Select...</option>
+                            <option value="Vacant">Vacant</option>
+                            <option value="Occupied">Occupied</option>
+                            <option value="Partially Occupied">Partially Occupied</option>
+                            <option value="Under Construction">Under Construction</option>
+                            <option value="Furnished but Vacant">Furnished but Vacant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="buildingType">Type of Building</label>
+                        <select id="buildingType">
+                            <option value="">Select...</option>
+                            <option value="Single Family Home">Single Family Home</option>
+                            <option value="Townhouse">Townhouse</option>
+                            <option value="Apartment/Unit">Apartment/Unit</option>
+                            <option value="Duplex">Duplex</option>
+                            <option value="Multi-Family">Multi-Family</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="New Construction">New Construction</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="weatherCondition">Weather Condition</label>
+                        <select id="weatherCondition">
+                            <option value="">Select...</option>
+                            <option value="Clear/Sunny">Clear/Sunny</option>
+                            <option value="Partly Cloudy">Partly Cloudy</option>
+                            <option value="Overcast">Overcast</option>
+                            <option value="Raining">Raining</option>
+                            <option value="Light Rain">Light Rain</option>
+                            <option value="Heavy Rain">Heavy Rain</option>
+                            <option value="Windy">Windy</option>
+                            <option value="Cold">Cold</option>
+                            <option value="Hot">Hot</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: General Disclaimer -->
+            <section class="form-section" id="disclaimer-section">
+                <h2 class="section-title">
+                    <span class="section-number">4</span>
+                    General Disclaimer
+                </h2>
+                <div class="form-group">
+                    <label for="disclaimer">Disclaimer Text</label>
+                    <textarea id="disclaimer" rows="8">This inspection report is based on the visual examination of the readily accessible areas of the property at the time of inspection. The inspection is not technically exhaustive and does not include areas that are concealed, inaccessible, or obstructed. This report is not a guarantee or warranty, expressed or implied, regarding the condition of the property. The inspector is not responsible for any repairs or replacements. The client is advised to seek professional advice for any concerns or defects identified in this report. This inspection does not cover compliance with local building codes, regulations, or ordinances unless specifically stated. The findings in this report are the professional opinion of the inspector based on their training, experience, and the conditions observed at the time of inspection.</textarea>
+                </div>
+            </section>
+
+            <!-- Section 5: Defect List -->
+            <section class="form-section" id="defects-section">
+                <h2 class="section-title">
+                    <span class="section-number">5</span>
+                    Defect List
+                </h2>
+                <p class="section-description">Add all identified defects with images and descriptions. Each defect will appear as a separate entry in the PDF report.</p>
+                
+                <!-- Defect Entry Form -->
+                <div class="defect-entry-form">
+                    <h3>Add New Defect</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="defectImage">Upload Image (JPEG/PNG)</label>
+                            <input type="file" id="defectImage" accept="image/jpeg, image/png">
+                            <div class="image-preview" id="imagePreview">
+                                <span class="preview-placeholder">Image preview will appear here</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="defectDescription">Defect Description</label>
+                            <textarea id="defectDescription" rows="6" placeholder="Describe the defect in detail including location, severity, and any recommendations"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="addDefectBtn" class="btn btn-primary">
+                        <span class="btn-icon">+</span> Add Defect
+                    </button>
+                </div>
+
+                <!-- Defect List Display -->
+                <div class="defects-list" id="defectsList">
+                    <h3>Added Defects <span class="defect-count" id="defectCount">(0)</span></h3>
+                    <div class="defects-container" id="defectsContainer">
+                        <p class="no-defects" id="noDefectsMessage">No defects added yet. Use the form above to add defects.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 6: Generate PDF -->
+            <section class="form-section generate-section" id="generate-section">
+                <h2 class="section-title">
+                    <span class="section-number">6</span>
+                    Generate Report
+                </h2>
+                <p class="section-description">Click the button below to generate and download your professional inspection report as a PDF file.</p>
+                <button type="button" id="generatePdfBtn" class="btn btn-generate">
+                    <span class="btn-icon">📄</span> Generate PDF Report
+                </button>
+                <div class="generation-status" id="generationStatus"></div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Home Defect Inspection Report Generator &copy; 2024</p>
+        </footer>
+    </div>
+
+    <!-- Load jsPDF library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Load our custom script -->
+    <script src="script.js"></script>
+</body>
+</html>
