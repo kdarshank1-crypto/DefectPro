@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional Home Defect Inspection Report Generator - Create and export inspection reports as PDF">
+    <meta name="description"
+        content="Professional Home Defect Inspection Report Generator - Create and export inspection reports as PDF">
     <title>Home Defect Inspection Report Generator</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Main Header -->
@@ -17,7 +20,7 @@
 
         <!-- Report Form -->
         <main class="report-form">
-            
+
             <!-- Section 1: Report Header / Company Info -->
             <section class="form-section" id="company-section">
                 <h2 class="section-title">
@@ -39,7 +42,8 @@
                     </div>
                     <div class="form-group">
                         <label for="reportTitle">Report Title</label>
-                        <input type="text" id="reportTitle" value="Home Defect Inspection Report" placeholder="Enter report title">
+                        <input type="text" id="reportTitle" value="Home Defect Inspection Report"
+                            placeholder="Enter report title">
                     </div>
                 </div>
             </section>
@@ -69,7 +73,8 @@
                     </div>
                     <div class="form-group">
                         <label for="inspectorCredentials">Inspector Credentials</label>
-                        <textarea id="inspectorCredentials" rows="3" placeholder="Enter credentials, certifications, qualifications"></textarea>
+                        <textarea id="inspectorCredentials" rows="3"
+                            placeholder="Enter credentials, certifications, qualifications"></textarea>
                     </div>
                 </div>
             </section>
@@ -143,7 +148,8 @@
                 </h2>
                 <div class="form-group">
                     <label for="disclaimer">Disclaimer Text</label>
-                    <textarea id="disclaimer" rows="8">This inspection report is based on the visual examination of the readily accessible areas of the property at the time of inspection. The inspection is not technically exhaustive and does not include areas that are concealed, inaccessible, or obstructed. This report is not a guarantee or warranty, expressed or implied, regarding the condition of the property. The inspector is not responsible for any repairs or replacements. The client is advised to seek professional advice for any concerns or defects identified in this report. This inspection does not cover compliance with local building codes, regulations, or ordinances unless specifically stated. The findings in this report are the professional opinion of the inspector based on their training, experience, and the conditions observed at the time of inspection.</textarea>
+                    <textarea id="disclaimer"
+                        rows="8">This inspection report is based on the visual examination of the readily accessible areas of the property at the time of inspection. The inspection is not technically exhaustive and does not include areas that are concealed, inaccessible, or obstructed. This report is not a guarantee or warranty, expressed or implied, regarding the condition of the property. The inspector is not responsible for any repairs or replacements. The client is advised to seek professional advice for any concerns or defects identified in this report. This inspection does not cover compliance with local building codes, regulations, or ordinances unless specifically stated. The findings in this report are the professional opinion of the inspector based on their training, experience, and the conditions observed at the time of inspection.</textarea>
                 </div>
             </section>
 
@@ -153,12 +159,97 @@
                     <span class="section-number">5</span>
                     Defect List
                 </h2>
-                <p class="section-description">Add all identified defects with images and descriptions. Each defect will appear as a separate entry in the PDF report.</p>
-                
+                <p class="section-description">Add all identified defects with images and descriptions. Each defect will
+                    appear as a separate entry in the PDF report.</p>
+
                 <!-- Defect Entry Form -->
                 <div class="defect-entry-form">
                     <h3>Add New Defect</h3>
                     <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="defectType">Defect Type</label>
+                            <select id="defectType">
+                                <option value="">Select a defect type...</option>
+                                <optgroup label="Structural Defects">
+                                    <option value="Crack in Wall">Crack in Wall</option>
+                                    <option value="Crack in Ceiling">Crack in Ceiling</option>
+                                    <option value="Crack in Foundation">Crack in Foundation</option>
+                                    <option value="Uneven/Sagging Floor">Uneven/Sagging Floor</option>
+                                    <option value="Bulging Wall">Bulging Wall</option>
+                                    <option value="Damaged Beam/Joist">Damaged Beam/Joist</option>
+                                </optgroup>
+                                <optgroup label="Water & Moisture Issues">
+                                    <option value="Water Stain">Water Stain</option>
+                                    <option value="Water Damage">Water Damage</option>
+                                    <option value="Mold/Mildew">Mold/Mildew</option>
+                                    <option value="Dampness/Moisture">Dampness/Moisture</option>
+                                    <option value="Leaking Pipe">Leaking Pipe</option>
+                                    <option value="Leaking Roof">Leaking Roof</option>
+                                    <option value="Poor Drainage">Poor Drainage</option>
+                                    <option value="Condensation">Condensation</option>
+                                </optgroup>
+                                <optgroup label="Electrical Issues">
+                                    <option value="Faulty Wiring">Faulty Wiring</option>
+                                    <option value="Exposed Wires">Exposed Wires</option>
+                                    <option value="Non-functional Outlet">Non-functional Outlet</option>
+                                    <option value="Non-functional Switch">Non-functional Switch</option>
+                                    <option value="Overloaded Circuit">Overloaded Circuit</option>
+                                    <option value="Improper Grounding">Improper Grounding</option>
+                                </optgroup>
+                                <optgroup label="Plumbing Issues">
+                                    <option value="Blocked Drain">Blocked Drain</option>
+                                    <option value="Low Water Pressure">Low Water Pressure</option>
+                                    <option value="Dripping Faucet">Dripping Faucet</option>
+                                    <option value="Running Toilet">Running Toilet</option>
+                                    <option value="Corroded Pipes">Corroded Pipes</option>
+                                    <option value="Water Heater Issue">Water Heater Issue</option>
+                                </optgroup>
+                                <optgroup label="Doors & Windows">
+                                    <option value="Damaged Door">Damaged Door</option>
+                                    <option value="Damaged Window">Damaged Window</option>
+                                    <option value="Broken Glass">Broken Glass</option>
+                                    <option value="Poor Sealing/Draft">Poor Sealing/Draft</option>
+                                    <option value="Sticking Door/Window">Sticking Door/Window</option>
+                                    <option value="Broken Lock/Hardware">Broken Lock/Hardware</option>
+                                </optgroup>
+                                <optgroup label="Flooring Issues">
+                                    <option value="Damaged Flooring">Damaged Flooring</option>
+                                    <option value="Loose/Missing Tiles">Loose/Missing Tiles</option>
+                                    <option value="Cracked Tiles">Cracked Tiles</option>
+                                    <option value="Carpet Damage/Stain">Carpet Damage/Stain</option>
+                                    <option value="Wood Floor Damage">Wood Floor Damage</option>
+                                </optgroup>
+                                <optgroup label="Paint & Finish">
+                                    <option value="Peeling Paint">Peeling Paint</option>
+                                    <option value="Bubbling Paint">Bubbling Paint</option>
+                                    <option value="Discoloration">Discoloration</option>
+                                    <option value="Scratches/Scuffs">Scratches/Scuffs</option>
+                                </optgroup>
+                                <optgroup label="Exterior Issues">
+                                    <option value="Damaged Siding">Damaged Siding</option>
+                                    <option value="Damaged Roofing">Damaged Roofing</option>
+                                    <option value="Damaged Gutters">Damaged Gutters</option>
+                                    <option value="Foundation Crack">Foundation Crack</option>
+                                    <option value="Deck/Patio Damage">Deck/Patio Damage</option>
+                                </optgroup>
+                                <optgroup label="HVAC Issues">
+                                    <option value="AC Not Working">AC Not Working</option>
+                                    <option value="Heating Not Working">Heating Not Working</option>
+                                    <option value="Poor Ventilation">Poor Ventilation</option>
+                                    <option value="Dirty/Clogged Filter">Dirty/Clogged Filter</option>
+                                </optgroup>
+                                <optgroup label="Safety Hazards">
+                                    <option value="Missing Smoke Detector">Missing Smoke Detector</option>
+                                    <option value="Handrail Issue">Handrail Issue</option>
+                                    <option value="Trip Hazard">Trip Hazard</option>
+                                    <option value="Unsecured Item">Unsecured Item</option>
+                                </optgroup>
+                                <option value="Other">Other (Custom Entry)</option>
+                            </select>
+                            <div class="custom-defect-input" id="customDefectInput" style="display: none;">
+                                <input type="text" id="customDefectType" placeholder="Enter custom defect type">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="defectImage">Upload Image (JPEG/PNG)</label>
                             <input type="file" id="defectImage" accept="image/jpeg, image/png">
@@ -168,7 +259,8 @@
                         </div>
                         <div class="form-group">
                             <label for="defectDescription">Defect Description</label>
-                            <textarea id="defectDescription" rows="6" placeholder="Describe the defect in detail including location, severity, and any recommendations"></textarea>
+                            <textarea id="defectDescription" rows="6"
+                                placeholder="Describe the defect in detail including location, severity, and any recommendations"></textarea>
                         </div>
                     </div>
                     <button type="button" id="addDefectBtn" class="btn btn-primary">
@@ -180,7 +272,8 @@
                 <div class="defects-list" id="defectsList">
                     <h3>Added Defects <span class="defect-count" id="defectCount">(0)</span></h3>
                     <div class="defects-container" id="defectsContainer">
-                        <p class="no-defects" id="noDefectsMessage">No defects added yet. Use the form above to add defects.</p>
+                        <p class="no-defects" id="noDefectsMessage">No defects added yet. Use the form above to add
+                            defects.</p>
                     </div>
                 </div>
             </section>
@@ -191,7 +284,8 @@
                     <span class="section-number">6</span>
                     Generate Report
                 </h2>
-                <p class="section-description">Click the button below to generate and download your professional inspection report as a PDF file.</p>
+                <p class="section-description">Click the button below to generate and download your professional
+                    inspection report as a PDF file.</p>
                 <button type="button" id="generatePdfBtn" class="btn btn-generate">
                     <span class="btn-icon">📄</span> Generate PDF Report
                 </button>
@@ -211,4 +305,5 @@
     <!-- Load our custom script -->
     <script src="script.js"></script>
 </body>
+
 </html>
