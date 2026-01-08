@@ -1,3 +1,24 @@
+/* Custom defect input styling */
+.custom-defect-input {
+    margin-top: 10px;
+}
+
+.custom-defect-input input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--white);
+}
+
+.custom-defect-input input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
 /* ============================================
    HOME DEFECT INSPECTION REPORT GENERATOR
    Professional, Clean, Desktop-First Design
@@ -412,6 +433,16 @@ body {
     color: var(--color-accent);
     text-transform: uppercase;
     margin-bottom: var(--spacing-xs);
+}
+
+.defect-card-type {
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--color-background);
+    border-radius: var(--radius-sm);
+    display: inline-block;
 }
 
 .defect-card-description {
