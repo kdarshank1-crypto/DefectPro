@@ -114,11 +114,26 @@
                         <select id="buildingType">
                             <option value="">Select...</option>
                             <option value="Single Family Home">Single Family Home</option>
+                            <option value="Condominium">Condominium</option>
+                            <option value="Bungalow">Bungalow</option>
                             <option value="Townhouse">Townhouse</option>
                             <option value="Apartment/Unit">Apartment/Unit</option>
+                            <option value="Studio Apartment">Studio Apartment</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Loft">Loft</option>
                             <option value="Duplex">Duplex</option>
+                            <option value="Triplex">Triplex</option>
+                            <option value="Semi-Detached">Semi-Detached</option>
+                            <option value="Terrace House">Terrace House</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Cottage">Cottage</option>
+                            <option value="Mansion">Mansion</option>
+                            <option value="HDB Flat">HDB Flat</option>
+                            <option value="Landed Property">Landed Property</option>
                             <option value="Multi-Family">Multi-Family</option>
+                            <option value="Mixed-Use">Mixed-Use</option>
                             <option value="Commercial">Commercial</option>
+                            <option value="Industrial">Industrial</option>
                             <option value="New Construction">New Construction</option>
                         </select>
                     </div>
@@ -148,8 +163,13 @@
                 </h2>
                 <div class="form-group">
                     <label for="disclaimer">Disclaimer Text</label>
-                    <textarea id="disclaimer"
-                        rows="8">This inspection report is based on the visual examination of the readily accessible areas of the property at the time of inspection. The inspection is not technically exhaustive and does not include areas that are concealed, inaccessible, or obstructed. This report is not a guarantee or warranty, expressed or implied, regarding the condition of the property. The inspector is not responsible for any repairs or replacements. The client is advised to seek professional advice for any concerns or defects identified in this report. This inspection does not cover compliance with local building codes, regulations, or ordinances unless specifically stated. The findings in this report are the professional opinion of the inspector based on their training, experience, and the conditions observed at the time of inspection.</textarea>
+                    <textarea id="disclaimer" rows="8">Disclaimer 
+The Home Defect Inspection Report is prepared by Jabiru Ventures for the specific purposes of assessing the general condition of the property and identifying defects that are readily apparent at the time of inspection based on the limited visual, non-invasive inspection. Contained in this report are general information items, defect details and repair needs noted during the inspection. 
+This report is our professional opinion but not a guarantee or a warranty. The inspection is intended to add to your knowledge of the building and help you understand the defects and risk in it. 
+The report is complete and thorough, but it is a general overview, not technically exhaustive. Specialists in each field could provide a more detailed analysis of the building systems, but at considerably more cost and time. Our visual and limited operational inspection provides the broadest overview of the property with less costs and time. 
+This inspection report is limited to deficiencies present at the time of the inspection. New deficiencies can develop 
+in buildings at any time, especially in buildings which may lie vacant. 
+No responsibility is accepted in the event that the Report is used for any other purpose.</textarea>
                 </div>
             </section>
 
@@ -250,11 +270,13 @@
                                 <input type="text" id="customDefectType" placeholder="Enter custom defect type">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="defectImage">Upload Image (JPEG/PNG)</label>
-                            <input type="file" id="defectImage" accept="image/jpeg, image/png">
-                            <div class="image-preview" id="imagePreview">
-                                <span class="preview-placeholder">Image preview will appear here</span>
+                        <div class="form-group full-width">
+                            <label for="defectImage">Upload Images (JPEG/PNG) - You can select multiple images</label>
+                            <input type="file" id="defectImage" accept="image/jpeg, image/png" multiple>
+                            <div class="images-preview-container" id="imagesPreviewContainer">
+                                <span class="preview-placeholder" id="previewPlaceholder">Image previews will appear
+                                    here</span>
+                                <div class="images-preview-gallery" id="imagesPreviewGallery"></div>
                             </div>
                         </div>
                         <div class="form-group">

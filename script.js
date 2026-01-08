@@ -35,7 +35,9 @@ const customDefectInput = document.getElementById('customDefectInput');
 const customDefectTypeInput = document.getElementById('customDefectType');
 const defectImageInput = document.getElementById('defectImage');
 const defectDescriptionInput = document.getElementById('defectDescription');
-const imagePreview = document.getElementById('imagePreview');
+const imagesPreviewContainer = document.getElementById('imagesPreviewContainer');
+const imagesPreviewGallery = document.getElementById('imagesPreviewGallery');
+const previewPlaceholder = document.getElementById('previewPlaceholder');
 const addDefectBtn = document.getElementById('addDefectBtn');
 const defectsContainer = document.getElementById('defectsContainer');
 const defectCountSpan = document.getElementById('defectCount');
@@ -45,35 +47,87 @@ const noDefectsMessage = document.getElementById('noDefectsMessage');
 const generatePdfBtn = document.getElementById('generatePdfBtn');
 const generationStatus = document.getElementById('generationStatus');
 
+// Temporary storage for selected images
+let selectedImages = [];
+
 // ============================================
 // IMAGE PREVIEW FUNCTIONALITY
 // ============================================
 
 /**
- * Handles image file selection and displays preview
+ * Handles multiple image file selection and displays previews
+ * Images are accumulated - new selections are added to existing images
  */
 defectImageInput.addEventListener('change', function (e) {
-    const file = e.target.files[0];
+    const files = Array.from(e.target.files);
 
-    if (file) {
-        // Validate file type
-        if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
-            alert('Please select a JPEG or PNG image file.');
-            this.value = '';
-            return;
-        }
+    if (files.length > 0) {
+        previewPlaceholder.style.display = 'none';
 
-        // Create preview
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Defect image preview">`;
-        };
-        reader.readAsDataURL(file);
-    } else {
-        // Reset preview
-        imagePreview.innerHTML = '<span class="preview-placeholder">Image preview will appear here</span>';
+        // Process each file and ADD to existing images
+        files.forEach((file) => {
+            // Validate file type
+            if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+                alert(`File "${file.name}" is not a JPEG or PNG image and will be skipped.`);
+                return;
+            }
+
+            // Read and preview each image
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageData = e.target.result;
+                selectedImages.push({
+                    data: imageData,
+                    name: file.name
+                });
+
+                // Re-render the entire gallery to update numbering
+                renderImagePreviewGallery();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Reset the file input so the same file can be selected again if needed
+    this.value = '';
+});
+
+/**
+ * Handles removing individual images from the preview
+ */
+imagesPreviewGallery.addEventListener('click', function (e) {
+    if (e.target.classList.contains('remove-preview-btn')) {
+        const index = parseInt(e.target.dataset.index);
+        selectedImages.splice(index, 1);
+
+        // Re-render the gallery
+        renderImagePreviewGallery();
     }
 });
+
+/**
+ * Re-renders the image preview gallery after removal
+ */
+function renderImagePreviewGallery() {
+    imagesPreviewGallery.innerHTML = '';
+
+    if (selectedImages.length === 0) {
+        previewPlaceholder.style.display = 'block';
+        return;
+    }
+
+    previewPlaceholder.style.display = 'none';
+    selectedImages.forEach((img, index) => {
+        const previewItem = document.createElement('div');
+        previewItem.className = 'image-preview-item';
+        previewItem.innerHTML = `
+            <img src="${img.data}" alt="Defect image ${index + 1}">
+            <button type="button" class="remove-preview-btn" data-index="${index}" title="Remove image">×</button>
+            <span class="image-number">${index + 1}</span>
+        `;
+        imagesPreviewGallery.appendChild(previewItem);
+    });
+}
 
 // ============================================
 // DEFECT TYPE SELECTION
@@ -100,7 +154,6 @@ defectTypeSelect.addEventListener('change', function () {
  * Adds a new defect to the list
  */
 addDefectBtn.addEventListener('click', function () {
-    const file = defectImageInput.files[0];
     const description = defectDescriptionInput.value.trim();
     const selectedType = defectTypeSelect.value;
     const customType = customDefectTypeInput.value.trim();
@@ -119,8 +172,8 @@ addDefectBtn.addEventListener('click', function () {
         return;
     }
 
-    if (!file) {
-        alert('Please select an image for the defect.');
+    if (selectedImages.length === 0) {
+        alert('Please select at least one image for the defect.');
         return;
     }
 
@@ -129,33 +182,32 @@ addDefectBtn.addEventListener('click', function () {
         return;
     }
 
-    // Read the image as base64
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        // Create defect object
-        const defect = {
-            id: ++defectCounter,
-            defectType: defectType,
-            imageData: e.target.result,
-            imageName: file.name,
-            description: description
-        };
-
-        // Add to array
-        defects.push(defect);
-
-        // Update UI
-        renderDefects();
-
-        // Clear form
-        defectTypeSelect.value = '';
-        customDefectInput.style.display = 'none';
-        customDefectTypeInput.value = '';
-        defectImageInput.value = '';
-        defectDescriptionInput.value = '';
-        imagePreview.innerHTML = '<span class="preview-placeholder">Image preview will appear here</span>';
+    // Create defect object with multiple images
+    const defect = {
+        id: ++defectCounter,
+        defectType: defectType,
+        images: selectedImages.map(img => ({
+            data: img.data,
+            name: img.name
+        })),
+        description: description
     };
-    reader.readAsDataURL(file);
+
+    // Add to array
+    defects.push(defect);
+
+    // Update UI
+    renderDefects();
+
+    // Clear form
+    defectTypeSelect.value = '';
+    customDefectInput.style.display = 'none';
+    customDefectTypeInput.value = '';
+    defectImageInput.value = '';
+    defectDescriptionInput.value = '';
+    selectedImages = [];
+    imagesPreviewGallery.innerHTML = '';
+    previewPlaceholder.style.display = 'block';
 });
 
 /**
@@ -189,12 +241,26 @@ function renderDefects() {
     // Build HTML for all defects
     let html = '';
     defects.forEach((defect, index) => {
+        // Build images gallery HTML
+        let imagesHtml = '';
+        if (defect.images && defect.images.length > 0) {
+            imagesHtml = '<div class="defect-card-images">';
+            defect.images.forEach((img, imgIndex) => {
+                imagesHtml += `<img src="${img.data}" alt="Defect ${index + 1} - Image ${imgIndex + 1}" class="defect-card-image">`;
+            });
+            imagesHtml += '</div>';
+        } else if (defect.imageData) {
+            // Backward compatibility with old single-image format
+            imagesHtml = `<div class="defect-card-images"><img src="${defect.imageData}" alt="Defect ${index + 1}" class="defect-card-image"></div>`;
+        }
+
         html += `
             <div class="defect-card" data-id="${defect.id}">
-                <img src="${defect.imageData}" alt="Defect ${index + 1}" class="defect-card-image">
+                ${imagesHtml}
                 <div class="defect-card-content">
                     <div class="defect-card-number">Defect #${index + 1}</div>
                     <div class="defect-card-type"><strong>Type:</strong> ${escapeHtml(defect.defectType)}</div>
+                    <div class="defect-card-image-count">${defect.images ? defect.images.length : 1} image(s)</div>
                     <p class="defect-card-description">${escapeHtml(defect.description)}</p>
                 </div>
                 <div class="defect-card-actions">
@@ -526,66 +592,84 @@ generatePdfBtn.addEventListener('click', async function () {
             for (let i = 0; i < defects.length; i++) {
                 const defect = defects[i];
 
-                // Check if we need a new page (need space for image + description)
+                // Check if we need a new page (need space for header + first image)
                 checkNewPage(100);
 
                 // Defect header with type
                 doc.setFontSize(11);
                 doc.setFont('helvetica', 'bold');
                 doc.setTextColor(44, 82, 130);
-                doc.text(`Defect #${i + 1}: ${defect.defectType}`, margin, yPos);
+                const imageCount = defect.images ? defect.images.length : 1;
+                doc.text(`Defect #${i + 1}: ${defect.defectType} (${imageCount} image${imageCount > 1 ? 's' : ''})`, margin, yPos);
                 doc.setTextColor(0, 0, 0);
                 yPos += 8;
 
-                // Add image
-                try {
-                    // Calculate image dimensions (max width: contentWidth, max height: 80mm)
-                    const maxImgWidth = contentWidth;
-                    const maxImgHeight = 80;
+                // Get images array (support both old and new format)
+                const images = defect.images || [{ data: defect.imageData, name: defect.imageName }];
 
-                    // Get original image dimensions
-                    const img = new Image();
-                    img.src = defect.imageData;
+                // Add all images for this defect
+                for (let imgIdx = 0; imgIdx < images.length; imgIdx++) {
+                    const imageData = images[imgIdx].data;
 
-                    // Wait for image to load to get dimensions
-                    await new Promise((resolve) => {
-                        img.onload = resolve;
-                        img.onerror = resolve;
-                    });
+                    try {
+                        // Calculate image dimensions (max width: contentWidth, max height: 70mm for multiple, 80mm for single)
+                        const maxImgWidth = contentWidth;
+                        const maxImgHeight = images.length > 1 ? 70 : 80;
 
-                    let imgWidth = img.width;
-                    let imgHeight = img.height;
+                        // Get original image dimensions
+                        const img = new Image();
+                        img.src = imageData;
 
-                    // Scale image to fit
-                    const ratio = Math.min(maxImgWidth / imgWidth, maxImgHeight / imgHeight);
-                    imgWidth = imgWidth * ratio;
-                    imgHeight = imgHeight * ratio;
+                        // Wait for image to load to get dimensions
+                        await new Promise((resolve) => {
+                            img.onload = resolve;
+                            img.onerror = resolve;
+                        });
 
-                    // Check if image fits on current page
-                    if (yPos + imgHeight + 20 > pageHeight - margin) {
-                        doc.addPage();
-                        yPos = margin;
+                        let imgWidth = img.width;
+                        let imgHeight = img.height;
 
-                        // Re-add defect header on new page
-                        doc.setFontSize(11);
-                        doc.setFont('helvetica', 'bold');
-                        doc.setTextColor(44, 82, 130);
-                        doc.text(`Defect #${i + 1}: ${defect.defectType} (continued)`, margin, yPos);
+                        // Scale image to fit
+                        const ratio = Math.min(maxImgWidth / imgWidth, maxImgHeight / imgHeight);
+                        imgWidth = imgWidth * ratio;
+                        imgHeight = imgHeight * ratio;
+
+                        // Check if image fits on current page
+                        if (yPos + imgHeight + 20 > pageHeight - margin) {
+                            doc.addPage();
+                            yPos = margin;
+
+                            // Re-add defect header on new page
+                            doc.setFontSize(11);
+                            doc.setFont('helvetica', 'bold');
+                            doc.setTextColor(44, 82, 130);
+                            doc.text(`Defect #${i + 1}: ${defect.defectType} (continued)`, margin, yPos);
+                            doc.setTextColor(0, 0, 0);
+                            yPos += 8;
+                        }
+
+                        // Add image label if multiple images
+                        if (images.length > 1) {
+                            doc.setFontSize(9);
+                            doc.setFont('helvetica', 'italic');
+                            doc.setTextColor(100, 100, 100);
+                            doc.text(`Image ${imgIdx + 1} of ${images.length}`, margin, yPos);
+                            doc.setTextColor(0, 0, 0);
+                            yPos += 5;
+                        }
+
+                        // Add image to PDF
+                        doc.addImage(imageData, 'JPEG', margin, yPos, imgWidth, imgHeight);
+                        yPos += imgHeight + 5;
+
+                    } catch (imgError) {
+                        console.error('Error adding image:', imgError);
+                        doc.setFontSize(10);
+                        doc.setTextColor(150, 0, 0);
+                        doc.text(`[Image ${imgIdx + 1} could not be loaded]`, margin, yPos);
                         doc.setTextColor(0, 0, 0);
                         yPos += 8;
                     }
-
-                    // Add image to PDF
-                    doc.addImage(defect.imageData, 'JPEG', margin, yPos, imgWidth, imgHeight);
-                    yPos += imgHeight + 5;
-
-                } catch (imgError) {
-                    console.error('Error adding image:', imgError);
-                    doc.setFontSize(10);
-                    doc.setTextColor(150, 0, 0);
-                    doc.text('[Image could not be loaded]', margin, yPos);
-                    doc.setTextColor(0, 0, 0);
-                    yPos += 8;
                 }
 
                 // Add description

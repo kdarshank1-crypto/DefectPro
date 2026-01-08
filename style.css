@@ -945,3 +945,162 @@ body {
         display: none;
     }
 }
+
+/* ============================================
+   MULTIPLE IMAGES PREVIEW (Upload Form)
+   ============================================ */
+.images-preview-container {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-background);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.images-preview-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.image-preview-item {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+}
+
+.image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-preview-item .remove-preview-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--color-danger);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0;
+    transition: background-color var(--transition-fast);
+}
+
+.image-preview-item .remove-preview-btn:hover {
+    background-color: var(--color-danger-hover);
+}
+
+.image-preview-item .image-number {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* ============================================
+   DEFECT CARD IMAGES (Display)
+   ============================================ */
+.defect-card-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    max-width: 220px;
+}
+
+.defect-card-images .defect-card-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.defect-card-images .defect-card-image:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.defect-card-images .defect-card-image:only-child {
+    width: 200px;
+    height: 150px;
+}
+
+.defect-card-image-count {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Updated Defect Card Layout for multiple images */
+.defect-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    align-items: start;
+}
+
+/* Mobile responsive for multiple images */
+@media (max-width: 700px) {
+    .defect-card {
+        grid-template-columns: 1fr;
+    }
+
+    .defect-card-images {
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    .defect-card-images .defect-card-image {
+        width: 80px;
+        height: 80px;
+    }
+
+    .defect-card-images .defect-card-image:only-child {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .images-preview-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    .image-preview-item .image-number {
+        font-size: 10px;
+        padding: 1px 6px;
+    }
+
+    .image-preview-item .remove-preview-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
+    }
+}
